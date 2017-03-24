@@ -1,8 +1,11 @@
 # -*- coding: utf-8
-from flask import Flask
-from flask import render_template
+# from flask import Flask
+# from flask import render_template
+from flask import Flask, render_template, request
+from flask import redirect, url_for
 
-import MySQLdb
+# import db_layer_mySQL as db_layer
+import db_layer_SQLite as db_layer
 
 
 
@@ -20,38 +23,40 @@ def index():
 	return render_template("index.html")
 
 
+@app.route("/post_note", methods=["POST","GET"])
+def post_note():
+	if request.method == "POST":
+		
+		# try:
+		title = request.form["ttl"]
+		note = request.form["note"]
+
+		if note!="":
+
+			db_layer.insert(title, note)
+
+			msg = "Record successfully added"
+			return redirect(url_for('list'))
+		else:
+			msg = "The note should not be empty!"
+			return render_template("result.html",msg = msg)
 
 
 
 @app.route("/list")
 def list():
 
-	# соединяемся с базой данных
-	conn = MySQLdb.connect(host="localhost", user="lazzlo", passwd="password",
-	 db="db_notes", charset="utf8")
+	sql = "select * from notes"
 
-	# формируем курсор
-	cursor = conn.cursor()
+	rows = db_layer.f(sql)
 
-	sql = "select * from db_notes.notes"
-	cursor.execute(sql)
-
-	rows = cursor.fetchall()
-
-	conn.close()
+	# print rows
 
 	return render_template("list.html",rows = rows)
 
-   # con = sql.connect("database.db")
-   # con.row_factory = sql.Row
-   
-   # cur = con.cursor()
-   # cur.execute("select * from students")
-   
-   # rows = cur.fetchall();
-   # return render_template("list.html",rows = rows)
-
+	
 
 
 if __name__=="__main__" :
-	app.run()
+	# app.run()
+	app.run(debug = True)

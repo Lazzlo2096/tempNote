@@ -11,10 +11,10 @@
          </thead>
          {% for row in rows %}
             <tr>
-               <td>{{row[0]}}</td>
-               <td>{{row[1]}}</td>
-               <td> {{ row[2]}}</td>
-               <td>{{row[3]}}</td>	
+               <td>{{row["id_note"]}}</td>
+               <td>{{row["title"]}}</td>
+               <td> {{ row["text"]}}</td>
+               <td>{{row["date_of_creation"]}}</td>	
             </tr>
          {% endfor %}
       </table>
