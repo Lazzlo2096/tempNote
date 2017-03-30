@@ -36,10 +36,21 @@ def post_note():
 			db_layer.insert(title, note)
 
 			msg = "Record successfully added"
-			return redirect(url_for('list'))
+			return redirect(url_for('list')) 
+			#Должен вернуть страницу, которая даёт ссылку или пока вернуть саму страницу с запиской
 		else:
 			msg = "The note should not be empty!"
 			return render_template("result.html",msg = msg)
+
+
+
+@app.route("/<int:id_note>")
+def get_note(id_note):
+
+	sql = "select * from notes where id_note={}".format(id_note)
+	note = db_layer.f(sql)
+
+	return render_template("note.html",note=note[0])
 
 
 

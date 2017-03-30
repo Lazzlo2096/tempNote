@@ -28,7 +28,7 @@ p {
     /*background: #ffface*/ /*url(legacy/privnote-page-flip-30.png) no-repeat bottom right;*/
 }
 
-#content input {
+#content input, label {
     /*background-color: #ffface;*/
     width: 100%;
     max-width: 100%;
