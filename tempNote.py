@@ -36,7 +36,13 @@ def post_note():
 			db_layer.insert(title, note)
 
 			msg = "Record successfully added"
-			return redirect(url_for('list')) 
+
+
+			sql = "SELECT * FROM notes ORDER BY id_note DESC;"
+			smthing = db_layer.f(sql)
+
+
+			return redirect(url_for("get_note",id_note = smthing[0]["id_note"])) 
 			#Должен вернуть страницу, которая даёт ссылку или пока вернуть саму страницу с запиской
 		else:
 			msg = "The note should not be empty!"
