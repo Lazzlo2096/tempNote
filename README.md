@@ -1,5 +1,6 @@
 # TempNote
-Сервис для хранения временных записок
+Сервис для хранения временных записок.
+[Try it yourself on Heroku!](https://temp-notes.herokuapp.com/)
 
 Для запуска этого проекта требуются:
 * flask
